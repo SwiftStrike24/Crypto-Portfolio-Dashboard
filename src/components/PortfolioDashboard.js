@@ -14,19 +14,27 @@ const CURRENCIES = {
 };
 
 const Card = ({ children, className }) => (
-  <div className={`bg-gray-800 shadow-lg rounded-lg ${className} hover-scale animate-fade-in dark:bg-gray-700`}>{children}</div>
+  <div className={`bg-gray-800 shadow-lg rounded-lg ${className} hover:transform hover:scale-105 transition-transform duration-200 dark:bg-gray-700`}>
+    {children}
+  </div>
 );
 
 const CardHeader = ({ children }) => (
-  <div className="px-4 py-3 border-b border-gray-700 sm:px-6">{children}</div>
+  <div className="px-4 py-3 border-b border-gray-700 sm:px-6 dark:border-gray-600">
+    {children}
+  </div>
 );
 
 const CardTitle = ({ children }) => (
-  <h3 className="text-lg leading-6 font-medium text-purple-300">{children}</h3>
+  <h3 className="text-lg leading-6 font-medium text-purple-300">
+    {children}
+  </h3>
 );
 
 const CardContent = ({ children }) => (
-  <div className="px-4 py-3 sm:p-6">{children}</div>
+  <div className="px-4 py-3 sm:p-6">
+    {children}
+  </div>
 );
 
 const Button = ({ onClick, children, className }) => (
