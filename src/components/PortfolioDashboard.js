@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 
 const NETWORKS = ['Ethereum', 'Solana', 'Keplr'];
-const WALLETS = {
+const DEFAULT_WALLETS = {
   Ethereum: ['Wallet 1', 'Wallet 2'],
   Solana: ['Wallet 1', 'Wallet 2'],
   Keplr: ['Wallet 1']
@@ -173,14 +173,23 @@ const PortfolioDashboard = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [manualTotalValue, setManualTotalValue] = useState('');
   const [manualTimestamp, setManualTimestamp] = useState('');
+  const [wallets, setWallets] = useState(DEFAULT_WALLETS);
 
   useEffect(() => {
     const storedData = localStorage.getItem('portfolioData');
+    const storedWallets = localStorage.getItem('wallets');
     if (storedData) {
       try {
         setPortfolioData(JSON.parse(storedData));
       } catch (error) {
         console.error('Error parsing stored data:', error);
+      }
+    }
+    if (storedWallets) {
+      try {
+        setWallets(JSON.parse(storedWallets));
+      } catch (error) {
+        console.error('Error parsing stored wallets:', error);
       }
     }
   }, []);
@@ -193,6 +202,28 @@ const PortfolioDashboard = () => {
         [wallet]: parseFloat(value) || 0
       }
     }));
+  };
+
+  const addWallet = (network) => {
+    const newWallets = { ...wallets };
+    const walletNumber = newWallets[network].length + 1;
+    newWallets[network].push(`Wallet ${walletNumber}`);
+    setWallets(newWallets);
+    localStorage.setItem('wallets', JSON.stringify(newWallets));
+  };
+
+  const deleteWallet = (network, walletIndex) => {
+    const newWallets = { ...wallets };
+    newWallets[network].splice(walletIndex, 1);
+    setWallets(newWallets);
+    localStorage.setItem('wallets', JSON.stringify(newWallets));
+
+    // Also update currentValues
+    const newCurrentValues = { ...currentValues };
+    if (newCurrentValues[network]) {
+      delete newCurrentValues[network][wallets[network][walletIndex]];
+    }
+    setCurrentValues(newCurrentValues);
   };
 
   const logPortfolio = () => {
@@ -259,17 +290,33 @@ const PortfolioDashboard = () => {
               <CardTitle>{network} Network</CardTitle>
             </CardHeader>
             <CardContent>
-              {WALLETS[network].map(wallet => (
-                <div key={wallet} className="mb-4">
-                  <label className="block text-sm font-medium text-gray-300 mb-1">{wallet}</label>
-                  <Input
-                    type="number"
-                    placeholder="Enter value (USD)"
-                    onChange={(e) => handleInputChange(network, wallet, e.target.value)}
-                    className="transition-all duration-300 ease-in-out focus:shadow-md focus:shadow-purple-500/50"
-                  />
+              {wallets[network].map((wallet, index) => (
+                <div key={wallet} className="mb-4 flex items-center">
+                  <div className="flex-grow">
+                    <label className="block text-sm font-medium text-gray-300 mb-1">{wallet}</label>
+                    <Input
+                      type="number"
+                      placeholder="Enter value (USD)"
+                      onChange={(e) => handleInputChange(network, wallet, e.target.value)}
+                      className="transition-all duration-300 ease-in-out focus:shadow-md focus:shadow-purple-500/50"
+                    />
+                  </div>
+                  <Button
+                    onClick={() => deleteWallet(network, index)}
+                    className="ml-2 bg-red-600 hover:bg-red-700"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                  </Button>
                 </div>
               ))}
+              <Button
+                onClick={() => addWallet(network)}
+                className="w-full mt-2 bg-green-600 hover:bg-green-700"
+              >
+                Add Wallet
+              </Button>
             </CardContent>
           </Card>
         ))}
@@ -284,7 +331,7 @@ const PortfolioDashboard = () => {
         </Button>
         <Button onClick={() => setIsPopupOpen(true)} className="w-full sm:w-auto transition-all duration-300 ease-in-out hover:shadow-md hover:shadow-purple-500/50">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M10 2a1 1 0 00-1 1v6H5a1 1 0 100 2h4v6a1 1 0 102 0v-6h4a1 1 0 100-2h-4V3a1 1 0 00-1-1z" clipRule="evenodd" />
+          <path fillRule="evenodd" d="M10 2a1 1 0 00-1 1v6H5a1 1 0 100 2h4v6a1 1 0 102 0v-6h4a1 1 0 100-2h-4V3a1 1 0 00-1-1z" clipRule="evenodd" />
           </svg>
           Add Manual Portfolio
         </Button>
@@ -314,7 +361,7 @@ const PortfolioDashboard = () => {
               />
             </div>
             <div className="flex justify-end space-x-4">
-              <Button onClick={() => setIsPopupOpen(false)} className="bg-gray-600 hover:bg-gray-800 transition-all duration-300 ease-in-out hover:shadow-md hover:shadow-gray-500/50">Cancel</Button>
+              <Button onClick={() => setIsPopupOpen(false)} className="bg-gray-600 hover:bg-gray-700 transition-all duration-300 ease-in-out hover:shadow-md hover:shadow-gray-500/50">Cancel</Button>
               <Button onClick={logManualPortfolio} className="bg-purple-600 hover:bg-purple-700 transition-all duration-300 ease-in-out hover:shadow-md hover:shadow-purple-500/50">Save</Button>
             </div>
           </div>
@@ -330,14 +377,14 @@ const PortfolioDashboard = () => {
             <table className="min-w-full divide-y divide-gray-700">
               <thead className="bg-gray-800">
                 <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Timestamp</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Timestamp</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Total Value</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
               <tbody className="bg-gray-800 divide-y divide-gray-700">
                 {portfolioData.map((entry, index) => (
-                  <tr key={index} className="hover:bg-gray-800 transition-colors duration-150">
+                  <tr key={index} className="hover:bg-gray-700 transition-colors duration-150">
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{entry.timestamp}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-purple-300">{formatCurrency(entry.totalValue)}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
