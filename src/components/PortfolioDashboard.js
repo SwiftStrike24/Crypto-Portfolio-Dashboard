@@ -313,7 +313,7 @@ const PortfolioDashboard = () => {
               ))}
               <Button
                 onClick={() => addWallet(network)}
-                className="w-full mt-2 bg-green-600 hover:bg-green-700"
+                className="w-auto mt-2 bg-green-600 hover:bg-green-700 ml-auto px-3 py-1"
               >
                 Add Wallet
               </Button>
