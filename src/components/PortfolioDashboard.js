@@ -3,9 +3,9 @@ import Chart from 'chart.js/auto';
 
 const NETWORKS = ['Ethereum', 'Solana', 'Keplr'];
 const WALLETS = {
-  Ethereum: ['Main W1', 'Airdrop W2'],
+  Ethereum: ['Wallet 1', 'Wallet 2'],
   Solana: ['Wallet 1', 'Wallet 2'],
-  Keplr: ['Main Wallet']
+  Keplr: ['Wallet 1']
 };
 
 const CURRENCIES = {
