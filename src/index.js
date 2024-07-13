@@ -3,12 +3,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 import './styles/tailwind.css';
-import { Analytics } from '@vercel/analytics'; // Import the Analytics component
+import { inject } from '@vercel/analytics'; // Import the inject function
+
+// Inject the Vercel Analytics script
+inject();
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
-    <Analytics /> {/* Add the Analytics component here */}
   </React.StrictMode>,
   document.getElementById('root')
 );
