@@ -272,14 +272,14 @@ const PortfolioDashboard = () => {
     <div className="p-4 max-w-6xl mx-auto w-full bg-gray-900 text-white min-h-screen">
       <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
         <h1 className="text-2xl sm:text-3xl font-bold text-purple-300 mb-4 sm:mb-0">Portfolio Dashboard</h1>
-        <div className="tooltip">
-          <Select
+        <div className="flex flex-col items-center w-28">
+        <Select
             options={Object.keys(CURRENCIES)}
             value={currency}
             onChange={(e) => setCurrency(e.target.value)}
-            className="w-24"
-          />
-          <span className="tooltiptext">Currency for viewing. Inputs are always in USD.</span>
+            className="w-full mb-1"
+        />
+        <span className="text-sm text-gray-400 text-center">Inputs are always in USD.</span>
         </div>
       </div>
 
