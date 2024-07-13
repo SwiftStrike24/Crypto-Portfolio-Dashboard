@@ -14,7 +14,7 @@ const CURRENCIES = {
 };
 
 const Card = ({ children, className }) => (
-  <div className={`bg-gray-800 shadow-lg rounded-lg ${className} hover:transform hover:scale-105 transition-transform duration-200 dark:bg-gray-700`}>
+  <div className={`bg-gray-800 shadow-lg rounded-lg ${className} hover:transform hover:scale-105 transition-transform duration-200 dark:bg-gray-800`}>
     {children}
   </div>
 );
@@ -52,7 +52,7 @@ const Input = ({ type, placeholder, value, onChange, className }) => (
     placeholder={placeholder}
     value={value}
     onChange={onChange}
-    className={`mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm text-white ${className}`}
+    className={`mt-1 block w-full bg-gray-800 border border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm text-white ${className}`}
   />
 );
 
@@ -60,7 +60,7 @@ const Select = ({ options, value, onChange, className }) => (
   <select
     value={value}
     onChange={onChange}
-    className={`mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm text-white ${className}`}
+    className={`mt-1 block w-full bg-gray-800 border border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm text-white ${className}`}
   >
     {options.map(option => (
       <option key={option} value={option}>{option}</option>
@@ -314,7 +314,7 @@ const PortfolioDashboard = () => {
               />
             </div>
             <div className="flex justify-end space-x-4">
-              <Button onClick={() => setIsPopupOpen(false)} className="bg-gray-600 hover:bg-gray-700 transition-all duration-300 ease-in-out hover:shadow-md hover:shadow-gray-500/50">Cancel</Button>
+              <Button onClick={() => setIsPopupOpen(false)} className="bg-gray-600 hover:bg-gray-800 transition-all duration-300 ease-in-out hover:shadow-md hover:shadow-gray-500/50">Cancel</Button>
               <Button onClick={logManualPortfolio} className="bg-purple-600 hover:bg-purple-700 transition-all duration-300 ease-in-out hover:shadow-md hover:shadow-purple-500/50">Save</Button>
             </div>
           </div>
@@ -328,7 +328,7 @@ const PortfolioDashboard = () => {
         <CardContent>
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-700">
-              <thead className="bg-gray-700">
+              <thead className="bg-gray-800">
                 <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Timestamp</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Total Value</th>
@@ -337,7 +337,7 @@ const PortfolioDashboard = () => {
               </thead>
               <tbody className="bg-gray-800 divide-y divide-gray-700">
                 {portfolioData.map((entry, index) => (
-                  <tr key={index} className="hover:bg-gray-700 transition-colors duration-150">
+                  <tr key={index} className="hover:bg-gray-800 transition-colors duration-150">
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{entry.timestamp}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-purple-300">{formatCurrency(entry.totalValue)}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
