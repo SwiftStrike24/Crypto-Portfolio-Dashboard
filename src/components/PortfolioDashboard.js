@@ -14,7 +14,7 @@ const CURRENCIES = {
 };
 
 const Card = ({ children, className }) => (
-  <div className={`bg-gray-800 shadow-lg rounded-lg ${className} hover-scale animate-fade-in`}>{children}</div>
+  <div className={`bg-gray-800 shadow-lg rounded-lg ${className} hover-scale animate-fade-in dark:bg-gray-700`}>{children}</div>
 );
 
 const CardHeader = ({ children }) => (
@@ -230,7 +230,7 @@ const PortfolioDashboard = () => {
   };
 
   return (
-    <div className="p-4 max-w-6xl mx-auto w-full">
+    <div className="p-4 max-w-6xl mx-auto w-full dark:bg-gray-900 text-white">
       <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
         <h1 className="text-2xl sm:text-3xl font-bold text-purple-300 mb-4 sm:mb-0">Portfolio Dashboard</h1>
         <div className="tooltip">

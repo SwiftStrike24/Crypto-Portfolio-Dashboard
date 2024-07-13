@@ -4,7 +4,7 @@ import '../styles/tailwind.css';
 
 const App = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col dark:bg-gray-900">
       <PortfolioDashboard />
     </div>
   );
