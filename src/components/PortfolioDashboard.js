@@ -238,7 +238,7 @@ const PortfolioDashboard = () => {
   };
 
   return (
-    <div className="p-4 max-w-6xl mx-auto w-full dark:bg-gray-900 text-white">
+    <div className="p-4 max-w-6xl mx-auto w-full bg-gray-900 text-white min-h-screen">
       <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
         <h1 className="text-2xl sm:text-3xl font-bold text-purple-300 mb-4 sm:mb-0">Portfolio Dashboard</h1>
         <div className="tooltip">
@@ -252,21 +252,21 @@ const PortfolioDashboard = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
         {NETWORKS.map(network => (
-          <Card key={network}>
+          <Card key={network} className="transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-purple-500/50">
             <CardHeader>
               <CardTitle>{network} Network</CardTitle>
             </CardHeader>
             <CardContent>
               {WALLETS[network].map(wallet => (
-                <div key={wallet} className="mb-2">
-                  <label className="block text-sm font-medium text-gray-300">{wallet}</label>
+                <div key={wallet} className="mb-4">
+                  <label className="block text-sm font-medium text-gray-300 mb-1">{wallet}</label>
                   <Input
                     type="number"
                     placeholder="Enter value (USD)"
                     onChange={(e) => handleInputChange(network, wallet, e.target.value)}
-                    className="mt-1"
+                    className="transition-all duration-300 ease-in-out focus:shadow-md focus:shadow-purple-500/50"
                   />
                 </div>
               ))}
@@ -276,13 +276,13 @@ const PortfolioDashboard = () => {
       </div>
 
       <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mb-6">
-        <Button onClick={logPortfolio} className="w-full sm:w-auto">
+        <Button onClick={logPortfolio} className="w-full sm:w-auto transition-all duration-300 ease-in-out hover:shadow-md hover:shadow-purple-500/50">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
           </svg>
           Log Portfolio
         </Button>
-        <Button onClick={() => setIsPopupOpen(true)} className="w-full sm:w-auto">
+        <Button onClick={() => setIsPopupOpen(true)} className="w-full sm:w-auto transition-all duration-300 ease-in-out hover:shadow-md hover:shadow-purple-500/50">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M10 2a1 1 0 00-1 1v6H5a1 1 0 100 2h4v6a1 1 0 102 0v-6h4a1 1 0 100-2h-4V3a1 1 0 00-1-1z" clipRule="evenodd" />
           </svg>
@@ -295,31 +295,33 @@ const PortfolioDashboard = () => {
           <div className="bg-gray-800 rounded-lg p-6 w-full max-w-md">
             <h2 className="text-lg font-medium text-purple-300 mb-4">Add Manual Portfolio Entry</h2>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-300">Total Value (USD)</label>
+              <label className="block text-sm font-medium text-gray-300 mb-1">Total Value (USD)</label>
               <Input
                 type="number"
                 placeholder="Enter total value"
                 value={manualTotalValue}
                 onChange={(e) => setManualTotalValue(e.target.value)}
+                className="transition-all duration-300 ease-in-out focus:shadow-md focus:shadow-purple-500/50"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-300">Timestamp</label>
+              <label className="block text-sm font-medium text-gray-300 mb-1">Timestamp</label>
               <Input
                 type="datetime-local"
                 value={manualTimestamp}
                 onChange={(e) => setManualTimestamp(e.target.value)}
+                className="transition-all duration-300 ease-in-out focus:shadow-md focus:shadow-purple-500/50"
               />
             </div>
             <div className="flex justify-end space-x-4">
-              <Button onClick={() => setIsPopupOpen(false)} className="bg-gray-600 hover:bg-gray-700">Cancel</Button>
-              <Button onClick={logManualPortfolio} className="bg-purple-600 hover:bg-purple-700">Save</Button>
+              <Button onClick={() => setIsPopupOpen(false)} className="bg-gray-600 hover:bg-gray-700 transition-all duration-300 ease-in-out hover:shadow-md hover:shadow-gray-500/50">Cancel</Button>
+              <Button onClick={logManualPortfolio} className="bg-purple-600 hover:bg-purple-700 transition-all duration-300 ease-in-out hover:shadow-md hover:shadow-purple-500/50">Save</Button>
             </div>
           </div>
         </div>
       )}
 
-      <Card className="mb-6">
+      <Card className="mb-6 transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-purple-500/50">
         <CardHeader>
           <CardTitle>Portfolio Log</CardTitle>
         </CardHeader>
@@ -328,7 +330,7 @@ const PortfolioDashboard = () => {
             <table className="min-w-full divide-y divide-gray-700">
               <thead className="bg-gray-700">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Timestamp</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Timestamp</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Total Value</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Actions</th>
                 </tr>
@@ -339,7 +341,10 @@ const PortfolioDashboard = () => {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{entry.timestamp}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-purple-300">{formatCurrency(entry.totalValue)}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                      <Button onClick={() => deleteEntry(index)} className="bg-red-600 hover:bg-red-700">
+                      <Button 
+                        onClick={() => deleteEntry(index)} 
+                        className="bg-red-600 hover:bg-red-700 transition-all duration-300 ease-in-out hover:shadow-md hover:shadow-red-500/50"
+                      >
                         Delete
                       </Button>
                     </td>
@@ -351,7 +356,7 @@ const PortfolioDashboard = () => {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-purple-500/50">
         <CardHeader>
           <CardTitle>Portfolio Value Over Time</CardTitle>
         </CardHeader>
