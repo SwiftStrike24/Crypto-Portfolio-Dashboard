@@ -1,7 +1,7 @@
 {
   "name": "portfolio-dashboard",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Crypto portfolio dashboard application.",
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --mode development --open",
@@ -33,5 +33,17 @@
     "webpack": "^5.93.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.0.4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
