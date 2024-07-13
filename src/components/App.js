@@ -1,3 +1,4 @@
+// src/components/App.js
 import React from 'react';
 import PortfolioDashboard from './PortfolioDashboard';
 import '../styles/tailwind.css';
